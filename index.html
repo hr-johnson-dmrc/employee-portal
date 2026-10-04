@@ -1,1 +1,1135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+  <title>Employee Portal | Johnson Lifts</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: Arial, Helvetica, sans-serif;
+      background: #f3f6fa;
+      color: #172033;
+      min-height: 100vh;
+    }
+
+    .top-bar {
+      height: 7px;
+      background: #063b78;
+    }
+
+    .page {
+      min-height: calc(100vh - 7px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 25px 15px;
+    }
+
+    .portal-container {
+      width: 100%;
+      max-width: 1050px;
+      min-height: 620px;
+      background: #ffffff;
+      border-radius: 22px;
+      overflow: hidden;
+      box-shadow: 0 15px 50px rgba(0, 0, 0, 0.10);
+      display: grid;
+      grid-template-columns: 42% 58%;
+    }
+
+    /* LEFT SIDE */
+
+    .brand-panel {
+      background: linear-gradient(145deg, #063b78, #0757a5);
+      color: white;
+      padding: 50px 40px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .brand-panel::before {
+      content: "";
+      position: absolute;
+      width: 330px;
+      height: 330px;
+      border-radius: 50%;
+      border: 1px solid rgba(255,255,255,0.10);
+      right: -170px;
+      top: -80px;
+    }
+
+    .brand-panel::after {
+      content: "";
+      position: absolute;
+      width: 260px;
+      height: 260px;
+      border-radius: 50%;
+      border: 1px solid rgba(255,255,255,0.08);
+      left: -140px;
+      bottom: -100px;
+    }
+
+    .logo-box {
+      position: relative;
+      z-index: 2;
+      margin-bottom: 35px;
+    }
+
+    .logo-box img {
+      width: 185px;
+      max-width: 100%;
+      height: auto;
+      background: white;
+      padding: 10px 15px;
+      border-radius: 10px;
+    }
+
+    .brand-panel h1 {
+      position: relative;
+      z-index: 2;
+      font-size: 34px;
+      line-height: 1.15;
+      margin-bottom: 15px;
+      font-weight: 700;
+    }
+
+    .brand-panel .subtitle {
+      position: relative;
+      z-index: 2;
+      font-size: 16px;
+      line-height: 1.6;
+      color: rgba(255,255,255,0.86);
+      max-width: 330px;
+    }
+
+    .security-note {
+      position: relative;
+      z-index: 2;
+      margin-top: 35px;
+      padding: 15px;
+      border-radius: 12px;
+      background: rgba(255,255,255,0.10);
+      border: 1px solid rgba(255,255,255,0.12);
+      font-size: 13px;
+      line-height: 1.5;
+    }
+
+    /* LOGIN SIDE */
+
+    .login-panel {
+      padding: 55px 60px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .login-heading {
+      margin-bottom: 35px;
+    }
+
+    .login-heading .small-title {
+      color: #0757a5;
+      font-size: 13px;
+      font-weight: bold;
+      text-transform: uppercase;
+      letter-spacing: 1.2px;
+      margin-bottom: 8px;
+    }
+
+    .login-heading h2 {
+      font-size: 31px;
+      margin-bottom: 10px;
+      color: #172033;
+    }
+
+    .login-heading p {
+      color: #6c7480;
+      font-size: 14px;
+      line-height: 1.5;
+    }
+
+    .form-group {
+      margin-bottom: 21px;
+    }
+
+    .form-group label {
+      display: block;
+      margin-bottom: 8px;
+      font-size: 14px;
+      font-weight: 600;
+      color: #303949;
+    }
+
+    .input-wrapper {
+      position: relative;
+    }
+
+    .input-wrapper input {
+      width: 100%;
+      height: 52px;
+      border: 1px solid #d8dee8;
+      border-radius: 10px;
+      padding: 0 48px 0 15px;
+      font-size: 15px;
+      outline: none;
+      background: #fbfcfe;
+      transition: 0.2s;
+    }
+
+    .input-wrapper input:focus {
+      border-color: #0757a5;
+      box-shadow: 0 0 0 3px rgba(7,87,165,0.10);
+      background: white;
+    }
+
+    .input-icon {
+      position: absolute;
+      right: 15px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: #7b8491;
+      font-size: 18px;
+      pointer-events: none;
+    }
+
+    .password-toggle {
+      position: absolute;
+      right: 14px;
+      top: 50%;
+      transform: translateY(-50%);
+      border: none;
+      background: transparent;
+      cursor: pointer;
+      color: #697382;
+      font-size: 17px;
+    }
+
+    .password-toggle:hover {
+      color: #0757a5;
+    }
+
+    .login-button {
+      width: 100%;
+      height: 53px;
+      border: none;
+      border-radius: 10px;
+      background: #063b78;
+      color: white;
+      font-size: 16px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: 0.2s;
+      margin-top: 8px;
+    }
+
+    .login-button:hover {
+      background: #0757a5;
+      transform: translateY(-1px);
+    }
+
+    .login-button:disabled {
+      background: #8c98a8;
+      cursor: not-allowed;
+      transform: none;
+    }
+
+    .message {
+      display: none;
+      margin-top: 18px;
+      padding: 12px 14px;
+      border-radius: 9px;
+      font-size: 13px;
+      line-height: 1.45;
+    }
+
+    .message.error {
+      display: block;
+      background: #fff0f0;
+      color: #b42318;
+      border: 1px solid #ffd0d0;
+    }
+
+    .message.success {
+      display: block;
+      background: #edf9f0;
+      color: #18733c;
+      border: 1px solid #c7ebd1;
+    }
+
+    .help-text {
+      text-align: center;
+      margin-top: 24px;
+      color: #7b8491;
+      font-size: 12px;
+      line-height: 1.5;
+    }
+
+    .footer {
+      text-align: center;
+      margin-top: 30px;
+      color: #9aa2ad;
+      font-size: 11px;
+    }
+
+    /* PROFILE */
+
+    #profilePage {
+      display: none;
+      width: 100%;
+      max-width: 1100px;
+      background: #ffffff;
+      border-radius: 22px;
+      overflow: hidden;
+      box-shadow: 0 15px 50px rgba(0,0,0,0.10);
+    }
+
+    .profile-header {
+      background: linear-gradient(135deg, #063b78, #0757a5);
+      color: white;
+      padding: 35px;
+      display: flex;
+      align-items: center;
+      gap: 25px;
+    }
+
+    .employee-photo {
+      width: 105px;
+      height: 105px;
+      border-radius: 50%;
+      object-fit: cover;
+      background: white;
+      border: 4px solid rgba(255,255,255,0.85);
+    }
+
+    .profile-header h2 {
+      font-size: 28px;
+      margin-bottom: 7px;
+    }
+
+    .profile-header p {
+      font-size: 14px;
+      opacity: 0.9;
+      margin-bottom: 4px;
+    }
+
+    .status {
+      display: inline-block;
+      margin-top: 10px;
+      padding: 5px 10px;
+      background: rgba(255,255,255,0.16);
+      border-radius: 20px;
+      font-size: 12px;
+    }
+
+    .profile-body {
+      padding: 30px;
+    }
+
+    .section-title {
+      font-size: 18px;
+      color: #063b78;
+      font-weight: bold;
+      margin-bottom: 15px;
+      padding-bottom: 10px;
+      border-bottom: 2px solid #edf0f4;
+    }
+
+    .profile-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+      margin-bottom: 30px;
+    }
+
+    .profile-item {
+      padding: 15px;
+      background: #f7f9fc;
+      border-radius: 10px;
+    }
+
+    .profile-item .label {
+      color: #7b8491;
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 5px;
+    }
+
+    .profile-item .value {
+      color: #202938;
+      font-size: 14px;
+      font-weight: 600;
+      word-break: break-word;
+    }
+
+    .logout-button {
+      border: none;
+      background: #063b78;
+      color: white;
+      padding: 12px 25px;
+      border-radius: 9px;
+      cursor: pointer;
+      font-weight: bold;
+    }
+
+    /* LOADING */
+
+    .loading {
+      display: none;
+      text-align: center;
+      margin-top: 15px;
+      color: #0757a5;
+      font-size: 13px;
+    }
+
+    /* MOBILE */
+
+    @media (max-width: 800px) {
+
+      .page {
+        padding: 12px;
+        align-items: flex-start;
+      }
+
+      .portal-container {
+        grid-template-columns: 1fr;
+        min-height: auto;
+        border-radius: 16px;
+      }
+
+      .brand-panel {
+        padding: 30px 25px;
+        min-height: 310px;
+      }
+
+      .brand-panel h1 {
+        font-size: 28px;
+      }
+
+      .logo-box {
+        margin-bottom: 20px;
+      }
+
+      .logo-box img {
+        width: 150px;
+      }
+
+      .security-note {
+        margin-top: 20px;
+      }
+
+      .login-panel {
+        padding: 35px 25px;
+      }
+
+      .login-heading h2 {
+        font-size: 27px;
+      }
+
+      #profilePage {
+        border-radius: 16px;
+      }
+
+      .profile-header {
+        padding: 25px 20px;
+        flex-direction: column;
+        text-align: center;
+      }
+
+      .profile-header h2 {
+        font-size: 23px;
+      }
+
+      .profile-body {
+        padding: 20px;
+      }
+
+      .profile-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 420px) {
+      .brand-panel {
+        min-height: 290px;
+      }
+
+      .login-panel {
+        padding: 30px 20px;
+      }
+
+      .profile-item {
+        padding: 13px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="top-bar"></div>
+
+  <div class="page">
+
+    <!-- LOGIN PAGE -->
+
+    <div class="portal-container" id="loginPage">
+
+      <div class="brand-panel">
+
+        <div class="logo-box">
+          <img
+            src="https://drive.google.com/uc?export=view&id=1pgDIVoNqVBB5AKrL17S17bbC5p5rUFey"
+            alt="Johnson Lifts"
+            onerror="this.style.display='none';"
+          >
+        </div>
+
+        <h1>Employee Portal</h1>
+
+        <p class="subtitle">
+          Secure access to your employee profile and employment information.
+        </p>
+
+        <div class="security-note">
+          🔒 Your employee information is protected.
+          Please use your Employee Code and password to continue.
+        </div>
+
+      </div>
+
+
+      <div class="login-panel">
+
+        <div class="login-heading">
+
+          <div class="small-title">
+            Johnson Lifts Limited
+          </div>
+
+          <h2>Welcome Back</h2>
+
+          <p>
+            Enter your credentials to access your employee profile.
+          </p>
+
+        </div>
+
+
+        <form id="loginForm">
+
+          <div class="form-group">
+
+            <label for="employeeCode">
+              Employee Code
+            </label>
+
+            <div class="input-wrapper">
+
+              <input
+                type="text"
+                id="employeeCode"
+                placeholder="Enter Employee Code"
+                autocomplete="username"
+                required
+              >
+
+              <span class="input-icon">👤</span>
+
+            </div>
+
+          </div>
+
+
+          <div class="form-group">
+
+            <label for="password">
+              Password
+            </label>
+
+            <div class="input-wrapper">
+
+              <input
+                type="password"
+                id="password"
+                placeholder="Enter Password"
+                autocomplete="current-password"
+                required
+              >
+
+              <button
+                type="button"
+                class="password-toggle"
+                id="togglePassword"
+                aria-label="Show password"
+              >
+                👁
+              </button>
+
+            </div>
+
+          </div>
+
+
+          <button
+            type="submit"
+            class="login-button"
+            id="loginButton"
+          >
+            Login
+          </button>
+
+        </form>
+
+
+        <div class="loading" id="loading">
+          Verifying your details...
+        </div>
+
+
+        <div class="message" id="message"></div>
+
+
+        <div class="help-text">
+          If you are unable to login, please contact HR.
+        </div>
+
+        <div class="footer">
+          Johnson Lifts Limited • Employee Portal
+        </div>
+
+      </div>
+
+    </div>
+
+
+    <!-- PROFILE PAGE -->
+
+    <div id="profilePage">
+
+      <div class="profile-header">
+
+        <img
+          id="profilePhoto"
+          class="employee-photo"
+          src=""
+          alt="Employee Photo"
+        >
+
+        <div>
+
+          <h2 id="profileName">
+            Employee Name
+          </h2>
+
+          <p>
+            Employee Code:
+            <strong id="profileCode">-</strong>
+          </p>
+
+          <p id="profileDesignation">
+            Designation
+          </p>
+
+          <span class="status">
+            ● Active Employee
+          </span>
+
+        </div>
+
+      </div>
+
+
+      <div class="profile-body">
+
+        <div class="section-title">
+          Employee Information
+        </div>
+
+        <div class="profile-grid" id="employeeInfo">
+        </div>
+
+
+        <div class="section-title">
+          Contact & Employment Information
+        </div>
+
+        <div class="profile-grid" id="contactInfo">
+        </div>
+
+
+        <button
+          class="logout-button"
+          onclick="logout()"
+        >
+          Logout
+        </button>
+
+      </div>
+
+    </div>
+
+  </div>
+
+
+  <script>
+
+    /*
+      ============================================================
+      EMPLOYEE PORTAL
+      ============================================================
+
+      IMPORTANT:
+
+      The Google Sheet / employee passwords are NOT stored here.
+
+      The secure backend API will be connected later.
+
+      Do NOT put Google service-account credentials,
+      sheet data or password hashes in this file.
+    */
+
+
+    const CONFIG = {
+
+      /*
+        We will put the secure Cloudflare Worker API URL here
+        after the backend is created.
+
+        Example:
+
+        API_URL: "https://employee-api.hr-dmrc.workers.dev"
+
+      */
+
+      API_URL: ""
+
+    };
+
+
+    const loginForm = document.getElementById("loginForm");
+
+    const employeeCodeInput =
+      document.getElementById("employeeCode");
+
+    const passwordInput =
+      document.getElementById("password");
+
+    const loginButton =
+      document.getElementById("loginButton");
+
+    const togglePassword =
+      document.getElementById("togglePassword");
+
+    const message =
+      document.getElementById("message");
+
+    const loading =
+      document.getElementById("loading");
+
+
+    /*
+      SHOW / HIDE PASSWORD
+    */
+
+    togglePassword.addEventListener("click", function () {
+
+      if (passwordInput.type === "password") {
+
+        passwordInput.type = "text";
+
+        togglePassword.textContent = "🙈";
+
+      } else {
+
+        passwordInput.type = "password";
+
+        togglePassword.textContent = "👁";
+
+      }
+
+    });
+
+
+    /*
+      MESSAGE
+    */
+
+    function showMessage(text, type) {
+
+      message.textContent = text;
+
+      message.className = "message " + type;
+
+    }
+
+
+    function clearMessage() {
+
+      message.textContent = "";
+
+      message.className = "message";
+
+    }
+
+
+    /*
+      LOGIN
+    */
+
+    loginForm.addEventListener("submit", async function (event) {
+
+      event.preventDefault();
+
+      clearMessage();
+
+      const employeeCode =
+        employeeCodeInput.value.trim().toUpperCase();
+
+      const password =
+        passwordInput.value;
+
+      if (!employeeCode || !password) {
+
+        showMessage(
+          "Please enter Employee Code and Password.",
+          "error"
+        );
+
+        return;
+
+      }
+
+
+      /*
+        Backend has not been connected yet.
+      */
+
+      if (!CONFIG.API_URL) {
+
+        showMessage(
+          "Portal design is ready. Secure backend connection is being configured.",
+          "success"
+        );
+
+        return;
+
+      }
+
+
+      loginButton.disabled = true;
+
+      loading.style.display = "block";
+
+
+      try {
+
+        const response = await fetch(
+          CONFIG.API_URL + "/api/login",
+          {
+            method: "POST",
+
+            headers: {
+              "Content-Type": "application/json"
+            },
+
+            body: JSON.stringify({
+
+              employeeCode: employeeCode,
+
+              password: password
+
+            })
+
+          }
+        );
+
+
+        const result = await response.json();
+
+
+        if (!response.ok || !result.success) {
+
+          throw new Error(
+            result.message ||
+            "Invalid Employee Code or Password."
+          );
+
+        }
+
+
+        showProfile(result.employee);
+
+      } catch (error) {
+
+        showMessage(
+          error.message ||
+          "Unable to connect to the server.",
+          "error"
+        );
+
+      } finally {
+
+        loginButton.disabled = false;
+
+        loading.style.display = "none";
+
+      }
+
+    });
+
+
+    /*
+      PROFILE
+    */
+
+    function showProfile(employee) {
+
+      document.getElementById("loginPage").style.display =
+        "none";
+
+      document.getElementById("profilePage").style.display =
+        "block";
+
+
+      document.getElementById("profileName").textContent =
+        employee.name || "-";
+
+      document.getElementById("profileCode").textContent =
+        employee.employeeCode || "-";
+
+      document.getElementById("profileDesignation").textContent =
+        employee.designation || "-";
+
+
+      const photo =
+        document.getElementById("profilePhoto");
+
+      if (employee.photo) {
+
+        photo.src = employee.photo;
+
+      } else {
+
+        photo.src =
+          "https://via.placeholder.com/105?text=Photo";
+
+      }
+
+
+      const employeeInfo =
+        document.getElementById("employeeInfo");
+
+      employeeInfo.innerHTML = "";
+
+
+      addProfileItem(
+        employeeInfo,
+        "Employee Name",
+        employee.name
+      );
+
+      addProfileItem(
+        employeeInfo,
+        "Date of Joining",
+        employee.doj
+      );
+
+      addProfileItem(
+        employeeInfo,
+        "Gender",
+        employee.gender
+      );
+
+      addProfileItem(
+        employeeInfo,
+        "UAN Number",
+        employee.uan
+      );
+
+      addProfileItem(
+        employeeInfo,
+        "Date of Birth",
+        employee.dob
+      );
+
+      addProfileItem(
+        employeeInfo,
+        "ESIC Number",
+        employee.esic
+      );
+
+      addProfileItem(
+        employeeInfo,
+        "Blood Group",
+        employee.bloodGroup
+      );
+
+      addProfileItem(
+        employeeInfo,
+        "Employee Type",
+        employee.employeeType
+      );
+
+      addProfileItem(
+        employeeInfo,
+        "Father / Spouse Name",
+        employee.fatherSpouseName
+      );
+
+
+      const contactInfo =
+        document.getElementById("contactInfo");
+
+      contactInfo.innerHTML = "";
+
+
+      addProfileItem(
+        contactInfo,
+        "Employer Name",
+        employee.employer
+      );
+
+      addProfileItem(
+        contactInfo,
+        "Department",
+        employee.department
+      );
+
+      addProfileItem(
+        contactInfo,
+        "Designation",
+        employee.designation
+      );
+
+      addProfileItem(
+        contactInfo,
+        "Emergency Number",
+        employee.emergencyNumber
+      );
+
+      addProfileItem(
+        contactInfo,
+        "Personal Number",
+        employee.personalNumber
+      );
+
+      addProfileItem(
+        contactInfo,
+        "Current Address",
+        employee.currentAddress
+      );
+
+      addProfileItem(
+        contactInfo,
+        "Permanent Address",
+        employee.permanentAddress
+      );
+
+      addProfileItem(
+        contactInfo,
+        "Client Name",
+        employee.clientName
+      );
+
+    }
+
+
+    function addProfileItem(container, label, value) {
+
+      const item =
+        document.createElement("div");
+
+      item.className =
+        "profile-item";
+
+
+      const safeValue =
+        value === undefined ||
+        value === null ||
+        value === ""
+          ? "-"
+          : value;
+
+
+      item.innerHTML = `
+
+        <div class="label">
+          ${escapeHtml(label)}
+        </div>
+
+        <div class="value">
+          ${escapeHtml(String(safeValue))}
+        </div>
+
+      `;
+
+
+      container.appendChild(item);
+
+    }
+
+
+    /*
+      BASIC HTML ESCAPING
+      Prevents employee data from injecting HTML.
+    */
+
+    function escapeHtml(value) {
+
+      return value
+
+        .replace(/&/g, "&amp;")
+
+        .replace(/</g, "&lt;")
+
+        .replace(/>/g, "&gt;")
+
+        .replace(/"/g, "&quot;")
+
+        .replace(/'/g, "&#039;");
+
+    }
+
+
+    /*
+      LOGOUT
+    */
+
+    function logout() {
+
+      document.getElementById("profilePage").style.display =
+        "none";
+
+      document.getElementById("loginPage").style.display =
+        "grid";
+
+      employeeCodeInput.value = "";
+
+      passwordInput.value = "";
+
+      clearMessage();
+
+      window.scrollTo({
+        top: 0,
+        behavior: "smooth"
+      });
+
+    }
+
+
+  </script>
+
+</body>
+</html>
